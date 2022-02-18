@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <title>結果</title>
+        <style type="text/css">
+        .docomo{background-color: red;}
+        .softbank{background-color: silver;}
+        .au{background-color:orangered;}
+        .rakuten{background-color:deeppink;}
+        </style>
+    </head>
+
+<body>
+    <div class="container">
+    <table class="table-secondary table-bordered" align="center" >
+        <thead align=center>
+            <tr>
+                
+                    <th height=50px></th>
+                    <th class="docomo fs-4" width=20%>docomo</th>
+                    <th class="softbank fs-4" width=20%>softbank</th>
+                    <th class="au fs-4" width=20%>au</th>
+                    <th class="rakuten fs-4" width=20%>RakutenMobile</th>
+                
+            </tr>
+        </thead>
+        <tbody align=center>
+            <tr>
+                <td height=50px>プラン</td>
+                <td class="docomo">{{p_d}}</td>
+                <td class="softbank">{{p_s}}</td>
+                <td class="au" >{{p_a}}</td>
+                <td class="rakuten">{{p_r}}</td>
+
+            </tr>
+            <tr>
+                <td height=50px>割引前</td>
+                <td class="docomo">{{d}}円/月</td>
+                <td class="softbank">{{s}}円/月</td>
+                <td class="au" >{{a}}円/月</td>
+                <td class="rakuten">{{r}}円/月</td>
+
+
+            </tr>
+            <tr>
+                <td height=50px>家族割</td>
+                {%if d_f == 0%}
+                    <td class="docomo">適用なし</td>
+                {%else%}
+                    <td class="docomo">{{d_f}}円/月</td>
+                {%endif%}
+                {%if s_f == 0%}
+                    <td class="softbank">適用なし</td>
+                {%else%}
+                    <td class="softbank">{{s_f}}円/月</td>
+                {%endif%}
+                {%if a_f == 0%}
+                    <td class="au" >適用なし</td>
+                {%else%}
+                    <td class="au" >{{a_f}}円/月</td>
+                {%endif%}
+                
+                <td class="rakuten">-</td>
+                
+
+            </tr>
+            <tr>
+                <td height=50px>通話オプション
+                    {% if d_c == 770 %}
+                        <br>「5分以内の通話かけ放題」
+                    {% endif %}
+                    {% if d_c == 1870 %}
+                        <br>「通話かけ放題」
+                    {% endif %}
+                    
+            
+                </td>
+                {% if d_c == 0 %}
+                    <td class="docomo">なし</td>
+                    <td class="softbank">なし</td>
+                    <td class="au" >なし</td>
+                {%else%}
+                    <td class="docomo">{{d_c}}円/月</td>
+                    <td class="softbank">{{s_c}}円/月</td>
+                    <td class="au" >{{a_c}}円/月</td>
+                {%endif%}
+                <td class="rakuten">「RakutenLink」アプリ利用で無料
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="tooltip" data-bs-placement="right" title="RakutenLinkを利用していないスマホや固定電話への通話もかけ放題">
+                        ?
+                    </button>
+                </td>
+
+            </tr>
+        </tbody>
+        <tfoot align=center>
+            <tr>
+                <td height=50px>1か月</td>
+                <td class="docomo fs-5">{{d_m}}円/月</td>
+                <td class="softbank fs-5">{{s_m}}円/月</td>
+                <td class="au fs-5" >{{a_m}}円/月</td>
+                <td class="rakuten fs-5">{{r_m}}円/月</td>
+
+
+            </tr>
+            <tr>
+                <td height=50px>1年間</td>
+                <td class="docomo fs-5">{{d_y}}円/年</td>
+                <td class="softbank fs-5">{{s_y}}円/年</td>
+                <td class="au fs-5" >{{a_y}}円/年</td>
+                <td class="rakuten fs-5">{{r_y}}円/年</td>
+
+            </tr>
+            <tr>
+                <td height=100px>特徴</td>
+                <td class="docomo">
+                    {%if d <= 6765%}
+                        データ通信使用量により月々の料金が変動
+                        {%if d == 3465 %}
+                            <br>※通信量の上限を1GBに設定でき、料金超過の心配がない
+                        {%endif%}
+                    {%endif%}
+                    {%if d == 7315%}
+                        データ通信量が3GB未満の月は1650円引き
+                    {%endif%}
+                </td>
+
+
+                <td class="softbank">
+                    {%if s == 3278%}
+                        データ通信使用量により月々の料金が変動
+                    {%endif%}
+                    {%if s == 7238%}
+                        データ通信量が3GB未満の月は1650円引き
+                    {%endif%}
+                </td>
+
+                <td class="au" >
+                    {%if a == 7238%}
+                        Netflix,Amazonプライム,YoutubePremiumなどとのセットプランあり<br>
+                        データ通信量が3GB未満の月は1650円引き
+                    {%else%}
+                        データ通信使用量により月々の料金が変動
+                    {%endif%}
+                </td>
+                <td class="rakuten">データ通信使用量により月々の料金が変動<br>対応エリアが限られている</td>
+
+            </tr>
+        </tfoot>
+
+    </table>
+    <br>
+        <a href = "{%url 'keitai'%}">
+            <button type="button" class="btn btn-outline-primary">条件を変更する</button>
+        </a>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    </div>
+</body>
+</html>
